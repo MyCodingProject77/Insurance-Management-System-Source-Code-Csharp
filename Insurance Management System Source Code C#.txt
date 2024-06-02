@@ -1,0 +1,57 @@
+
+
+    using System.Data.SqlClient;
+
+
+
+       Save Code
+
+       con = new SqlConnection(@"Data Source=DESKTOP-HEEKBHE\SQLEXPRESS;Initial Catalog=InsuranceDB;Integrated Security=True;Trusted_Connection=True;TrustServerCertificate=True");
+con.Open();
+SqlCommand cnn = new SqlCommand("insert into policy values(@policyid,@policytype,@startdate,@enddate,@customerid)", con);
+
+cnn.Parameters.AddWithValue("@policyid", int.Parse(textBox1.Text));
+cnn.Parameters.AddWithValue("@policytype", textBox2.Text);
+
+cnn.Parameters.AddWithValue("@startdate", dateTimePicker1.Value);
+cnn.Parameters.AddWithValue("@enddate", dateTimePicker2.Value);
+cnn.Parameters.AddWithValue("@customerid", int.Parse(textBox3.Text));
+
+cnn.ExecuteNonQuery();
+con.Close();
+MessageBox.Show("Saved Successfully");
+
+
+
+
+
+
+     Add Code
+
+
+     con = new SqlConnection(@"Data Source=DESKTOP-HEEKBHE\SQLEXPRESS;Initial Catalog=InsuranceDB;Integrated Security=True;Trusted_Connection=True;TrustServerCertificate=True");
+con.Open();
+SqlCommand cnn = new SqlCommand("select * from policy", con);
+
+SqlDataAdapter da = new SqlDataAdapter(cnn);
+DataTable table = new DataTable();
+da.Fill(table);
+
+dataGridView1.DataSource = table;
+
+
+
+
+     Delete Code
+
+
+      con = new SqlConnection(@"Data Source=DESKTOP-HEEKBHE\SQLEXPRESS;Initial Catalog=InsuranceDB;Integrated Security=True;Trusted_Connection=True;TrustServerCertificate=True");
+ con.Open();
+ SqlCommand cnn = new SqlCommand("delete policy where policyid=@policyid", con);
+
+ cnn.Parameters.AddWithValue("@policyid", int.Parse(textBox1.Text));
+ 
+
+ cnn.ExecuteNonQuery();
+ con.Close();
+ MessageBox.Show("Deleted Successfully");
